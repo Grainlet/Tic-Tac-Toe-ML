@@ -1,0 +1,119 @@
+@font-face {
+    font-family: "Marykate";
+    src: url("./Marykate.ttf") format("truetype");
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: "Marykate", cursive;
+    background: #faf8f1;
+    color: #292720;
+    min-height: 100vh;
+}
+
+.hidden {
+    display: none !important;
+}
+
+#menu,
+#game-screen,
+#training-screen,
+#watch-screen {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 24px;
+}
+
+button {
+    font-family: "Marykate", cursive;
+    font-size: 22px;
+    color: #292720;
+    background: transparent;
+    border: 1px solid #aaa69b;
+    border-radius: 12px;
+    padding: 10px 22px;
+    cursor: pointer;
+}
+
+button:hover {
+    background: #efede5;
+}
+
+button:disabled {
+    cursor: default;
+}
+
+#menu button {
+    margin: 7px;
+    min-width: 190px;
+}
+
+#game-board,
+#training-board,
+#watch-board {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    width: min(88vw, 360px);
+    aspect-ratio: 1;
+    margin: 24px 0;
+}
+
+.cell,
+.training-cell,
+.watch-cell {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 0;
+    min-height: 0;
+    border: 1px solid #aaa69b;
+    border-radius: 0;
+    font-family: "Marykate", cursive;
+    font-size: clamp(42px, 10vw, 76px);
+    background: transparent;
+    padding: 0;
+}
+
+.cell.mark-x,
+.training-cell.mark-x,
+.watch-cell.mark-x {
+    color: #292720;
+}
+
+.cell.mark-o,
+.training-cell.mark-o,
+.watch-cell.mark-o {
+    color: #8c735f;
+}
+
+#game-status,
+#watch-status,
+#generation-counter {
+    font-size: 24px;
+    margin: 12px 0;
+    text-align: center;
+}
+
+#game-back,
+#training-back,
+#watch-back,
+#restart-button,
+#watch-restart {
+    margin: 8px;
+}
+
+@media (max-width: 480px) {
+    #game-board,
+    #training-board,
+    #watch-board {
+        width: min(88vw, 300px);
+    }
+}
