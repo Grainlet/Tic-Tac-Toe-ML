@@ -69,3 +69,4 @@ export class Fitness {
         this.gamesPlayed = 0;
     }
 }
+
