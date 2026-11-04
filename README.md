@@ -3,9 +3,11 @@
 
 <img width="1364" height="320" alt="Tic Tac Toe" src="https://i.ibb.co/PvCSkdvQ/image-6.png" />
 
-# Can You Survive The Snake?
+# Try it now!
 Click on the link attached to play the game and test your skills
-[Tic Tac Toe ML](https://grainlet.github.io/Survive-The-Snake)
+**It is recommended to train the opponent AI till atleast generation 50
+**Best possible result is a draw
+[Tic Tac Toe ML](https://grainlet.github.io/Tic-Tac-Toe-ML/)
 
 # How it works?
 During each training generation, a population of neural networks competes across simulated Tic Tac Toe matches. Each network receives 9 board inputs representing its own marks, the opponents marks and empty spaces, then outputs scores for the possible moves. Networks are rewarded for winning and drawing while losses receive lower scores. Each generation, the highest performing networks are saved, crossed over and mutated to create the next population. Over successful generations, the AI evolves its move selection, and the best performing network is saved for players to fight against.
