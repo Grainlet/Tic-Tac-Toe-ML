@@ -5,8 +5,8 @@
 
 # Try it now!
 Click on the link attached to play the game and test your skills
-**It is recommended to train the opponent AI till atleast generation 50
-**Best possible result is a draw
+It is recommended to train the opponent AI till atleast generation 50
+Best possible result is a draw
 [Tic Tac Toe ML](https://grainlet.github.io/Tic-Tac-Toe-ML/)
 
 # How it works?
