@@ -212,3 +212,4 @@ export class TrainingManager {
         this.onBoardUpdate(Array(9).fill(0));
     }
 }
+
