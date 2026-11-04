@@ -1,4 +1,9 @@
-@import url("https://fonts.cdnfonts.com/css/marykate");
+@font-face {
+    font-family: "Marykate";
+    src: url("./marykate.ttf") format("truetype");
+    font-weight: normal;
+    font-style: normal;
+}
 
 * {
     box-sizing: border-box;
