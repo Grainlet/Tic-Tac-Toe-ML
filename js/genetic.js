@@ -149,7 +149,7 @@ export class GeneticAlgorithm {
 
             return true;
         } catch (error) {
-            console.error("Couldnt load saved AI:", error);
+            console.error("Could not  load saved AI:", error);
             return false;
         }
     }

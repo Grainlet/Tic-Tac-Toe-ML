@@ -1,3 +1,4 @@
+
 export const WIN_COMBINATIONS = [
     [0, 1, 2],
     [3, 4, 5],
@@ -84,6 +85,8 @@ export function chooseMove(network, board, player = -1) {
         }
     }
 
+    network.lastSelectedMove = bestMove;
+
     return bestMove;
 }
 
@@ -102,6 +105,8 @@ export class Game {
         this.winner = null;
         this.finished = false;
         this.result = null;
+
+        this.lastMovePlayer = null;
     }
 
     playHumanMove(index) {
@@ -136,12 +141,14 @@ export class Game {
         }
 
         this.board[index] = player;
+        this.lastMovePlayer = player;
 
         const winner = getWinner(this.board);
 
         if (winner !== null) {
             this.winner = winner;
             this.finished = true;
+
             this.result = winner === this.humanPlayer
                 ? "win"
                 : "loss";
@@ -180,6 +187,7 @@ export class Game {
         this.winner = null;
         this.finished = false;
         this.result = null;
+        this.lastMovePlayer = null;
 
         this.onUpdate(this.getState());
     }
@@ -190,7 +198,8 @@ export class Game {
             currentPlayer: this.currentPlayer,
             winner: this.winner,
             finished: this.finished,
-            result: this.result
+            result: this.result,
+            lastMovePlayer: this.lastMovePlayer
         };
     }
 }
