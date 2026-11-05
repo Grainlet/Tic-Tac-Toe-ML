@@ -1,15 +1,19 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tic Tac Toe AI</title>
+    <title>Tic Tac Toe ML</title>
     <link rel="stylesheet" href="style.css">
 </head>
+
 <body>
 
     <main id="menu" class="screen active">
+
         <div class="menu-content">
+
             <div class="brand">
                 <span class="brand-mark">X<span>O</span></span>
                 <p>PlayerTwo Project</p>
@@ -19,9 +23,10 @@
             <p class="subtitle">Can u defeat ur own trained AI?</p>
 
             <div class="menu-buttons">
+
                 <button id="play-button" class="menu-button">
                     <span></span>
-                    <strong>PLAY AGAINST AI</strong>
+                    <strong>PLAY AGAINST YOUR AI</strong>
                     <span class="arrow"></span>
                 </button>
 
@@ -36,96 +41,164 @@
                     <strong>WATCH YOUR AI PLAY</strong>
                     <span class="arrow"></span>
                 </button>
+
             </div>
 
             <p class="footer-text">BUILT BY GOKUL</p>
+
         </div>
+
     </main>
 
+
     <main id="game-screen" class="screen">
+
         <header class="top-bar">
-            <button class="back-button" id="game-back">← MENU</button>
+
+            <button class="back-button" id="game-back">
+                ← MENU
+            </button>
+
             <span class="mode-label">PLAYER VS AI</span>
             <span class="top-label">TIC TAC TOE</span>
+
         </header>
 
         <section class="game-content">
-            <h2>YOUR MOVE<span>.</span></h2>
-            <p id="game-status">You are X. Make your first move.</p>
 
-            <div class="board" id="game-board">
-                <button class="cell" data-index="0"></button>
-                <button class="cell" data-index="1"></button>
-                <button class="cell" data-index="2"></button>
-                <button class="cell" data-index="3"></button>
-                <button class="cell" data-index="4"></button>
-                <button class="cell" data-index="5"></button>
-                <button class="cell" data-index="6"></button>
-                <button class="cell" data-index="7"></button>
-                <button class="cell" data-index="8"></button>
+            <h2>YOUR MOVE<span>.</span></h2>
+
+            <p id="game-status">
+                You are playing as X. Make your first move.
+            </p>
+
+            <div class="game-layout">
+
+                <div class="board" id="game-board">
+
+                    <button class="cell" data-index="0"></button>
+                    <button class="cell" data-index="1"></button>
+                    <button class="cell" data-index="2"></button>
+
+                    <button class="cell" data-index="3"></button>
+                    <button class="cell" data-index="4"></button>
+                    <button class="cell" data-index="5"></button>
+
+                    <button class="cell" data-index="6"></button>
+                    <button class="cell" data-index="7"></button>
+                    <button class="cell" data-index="8"></button>
+
+                </div>
+
+                <div id="network-visualizer"></div>
+
             </div>
 
-            <button id="restart-button" class="secondary-button">RESTART GAME</button>
+            <button id="restart-button" class="secondary-button">
+                RESTART GAME
+            </button>
+
         </section>
+
     </main>
 
+
     <main id="training-screen" class="screen">
+
         <header class="top-bar">
-            <button class="back-button" id="training-back">← MENU</button>
+
+            <button class="back-button" id="training-back">
+                MENU
+            </button>
+
             <span class="mode-label">TRAINING MODE</span>
-            <span class="top-label"></span>
+            <span class="top-label">TIC TAC TOE</span>
+
         </header>
 
         <section class="training-content">
+
             <p class="eyebrow">TRAINING IN PROGRESS</p>
+
             <h2>TRAINING YOUR AI<span>.</span></h2>
 
             <div class="generation">
+
                 <span>GENERATION</span>
                 <strong id="generation-counter">1</strong>
+
             </div>
 
             <div class="training-board" id="training-board">
+
                 <div class="training-cell"></div>
                 <div class="training-cell"></div>
                 <div class="training-cell"></div>
+
                 <div class="training-cell"></div>
                 <div class="training-cell"></div>
                 <div class="training-cell"></div>
+
                 <div class="training-cell"></div>
                 <div class="training-cell"></div>
                 <div class="training-cell"></div>
+
             </div>
 
-            <p class="training-description">Neural networks are fighting and evolving.</p>
+            <p class="training-description">
+                Neural networks are evolving
+            </p>
+
         </section>
+
     </main>
 
     <main id="watch-screen" class="screen">
+
         <header class="top-bar">
-            <button class="back-button" id="watch-back">MENU</button>
+
+            <button class="back-button" id="watch-back">
+                 MENU
+            </button>
+
             <span class="mode-label">AI VS AI</span>
             <span class="top-label">TIC TAC TOE</span>
+
         </header>
 
         <section class="game-content">
+
             <h2>AI MATCH<span>.</span></h2>
-            <p id="watch-status">Your trained AI is now ready to play</p>
 
-            <div class="board" id="watch-board">
-                <div class="watch-cell"></div>
-                <div class="watch-cell"></div>
-                <div class="watch-cell"></div>
-                <div class="watch-cell"></div>
-                <div class="watch-cell"></div>
-                <div class="watch-cell"></div>
-                <div class="watch-cell"></div>
-                <div class="watch-cell"></div>
-                <div class="watch-cell"></div>
+            <p id="watch-status">
+                Your trained AI is now ready
+            </p>
+
+            <div class="game-layout">
+
+                <div class="board" id="watch-board">
+
+                    <div class="watch-cell"></div>
+                    <div class="watch-cell"></div>
+                    <div class="watch-cell"></div>
+
+                    <div class="watch-cell"></div>
+                    <div class="watch-cell"></div>
+                    <div class="watch-cell"></div>
+
+                    <div class="watch-cell"></div>
+                    <div class="watch-cell"></div>
+                    <div class="watch-cell"></div>
+
+                </div>
+
+                <div id="watch-network-visualizer"></div>
             </div>
-
-            <button id="watch-restart" class="secondary-button">WATCH AGAIN</button>
+            <button id="watch-restart" class="secondary-button">
+                WATCH AGAIN
+            </button>
         </section>
+
     </main>
     <script type="module" src="js/main.js"></script>
 </body>
