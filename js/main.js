@@ -1,8 +1,19 @@
 import { Game, chooseMove } from "./game.js";
 import { Renderer } from "./render.js";
 import { TrainingManager } from "./training.js";
+import { NetworkVisualizer } from "./visualizer.js";
+
 
 const renderer = new Renderer();
+
+const gameVisualizer = new NetworkVisualizer(
+    document.getElementById("network-visualizer")
+);
+
+const watchVisualizer = new NetworkVisualizer(
+    document.getElementById("watch-network-visualizer")
+);
+
 const training = new TrainingManager({
     onBoardUpdate: board => {
         renderer.renderTraining(board);
@@ -12,7 +23,6 @@ const training = new TrainingManager({
         renderer.renderGeneration(data.generation);
     }
 });
-
 
 const menuScreen = document.getElementById("menu");
 const gameScreen = document.getElementById("game-screen");
@@ -31,13 +41,11 @@ const watchBackButton = document.getElementById("watch-back");
 const restartButton = document.getElementById("restart-button");
 const watchRestartButton = document.getElementById("watch-restart");
 
-
 let game = null;
 let watchGame = null;
 
 let trainingActive = false;
 let watchActive = false;
-
 
 
 function showScreen(screen) {
@@ -52,8 +60,10 @@ function showScreen(screen) {
 function showMenu() {
     stopTraining();
     stopWatching();
+
     showScreen(menuScreen);
 }
+
 
 function startGame() {
     stopTraining();
@@ -66,17 +76,23 @@ function startGame() {
 
         onUpdate: state => {
             renderer.renderGame(state);
+
+            if (game.network) {
+                gameVisualizer.render(game.network);
+            }
         }
     });
 
     showScreen(gameScreen);
+
     renderer.clearGame();
+    gameVisualizer.clear();
 
     game.restart();
 
     if (!bestNetwork) {
         document.getElementById("game-status").textContent =
-            "No trained AI found. Train one first!";
+            "No trained AI found, train one first";
     }
 }
 
@@ -91,12 +107,14 @@ function handleHumanMove(index) {
         setTimeout(() => {
             if (game && !game.finished) {
                 game.playAIMove();
+
+                if (game.network) {
+                    gameVisualizer.render(game.network);
+                }
             }
         }, 350);
     }
 }
-
-
 
 async function startTraining() {
     stopWatching();
@@ -104,6 +122,7 @@ async function startTraining() {
     if (trainingActive) return;
 
     trainingActive = true;
+
     showScreen(trainingScreen);
 
     training.loadSavedAI();
@@ -132,68 +151,63 @@ function startWatching() {
 
     if (!bestNetwork) {
         document.getElementById("watch-status").textContent =
-            "Train an AI first to watch it play.";
+            "Train an AI first to watch it play";
 
         renderer.clearWatch();
+        watchVisualizer.clear();
+
         return;
     }
 
     watchActive = true;
 
-    let networkX = bestNetwork.clone();
-    let networkO = bestNetwork.clone();
-
-    let currentMatch = null;
+    const networkX = bestNetwork.clone();
+    const networkO = bestNetwork.clone();
 
     async function playNextMatch() {
         if (!watchActive) return;
 
-        currentMatch = new Game({
+        watchGame = new Game({
             network: null,
 
             onUpdate: state => {
-                renderer.renderWatch({
-                    ...state,
-                    result: state.finished
-                        ? state.winner === 0
-                            ? "draw"
-                            : "win"
-                        : null
-                });
+                renderer.renderWatch(state);
             }
         });
 
-
-        currentMatch.board = Array(9).fill(0);
-        currentMatch.currentPlayer = 1;
-
         renderer.clearWatch();
+        watchVisualizer.clear();
 
-        while (watchActive && !currentMatch.finished) {
-            const player = currentMatch.currentPlayer;
+        while (watchActive && !watchGame.finished) {
+            const player = watchGame.currentPlayer;
 
-            const network = player === 1
+            const activeNetwork = player === 1
                 ? networkX
                 : networkO;
 
-            const move = currentMatch.board.length
-                ? await getAIMove(network, currentMatch, player)
-                : -1;
+            const move = chooseMove(
+                activeNetwork,
+                watchGame.board,
+                player
+            );
 
             if (!watchActive || move === -1) break;
 
-            currentMatch.makeMove(move, player);
 
-            await new Promise(resolve => setTimeout(resolve, 450));
+            watchVisualizer.render(activeNetwork);
+
+            await new Promise(resolve => setTimeout(resolve, 400));
+
+            if (!watchActive) break;
+
+            watchGame.makeMove(move, player);
+
+            await new Promise(resolve => setTimeout(resolve, 350));
         }
 
         if (watchActive) {
             await new Promise(resolve => setTimeout(resolve, 1200));
 
-
-            const previousX = networkX;
-            networkX = networkO;
-            networkO = previousX;
 
             playNextMatch();
         }
@@ -202,18 +216,9 @@ function startWatching() {
     playNextMatch();
 }
 
-async function getAIMove(network, currentGame, player) {
-    return chooseMove(
-        network,
-        currentGame.board,
-        player
-    );
-}
-
 function stopWatching() {
     watchActive = false;
 }
-
 
 playButton.addEventListener("click", startGame);
 trainButton.addEventListener("click", startTraining);
@@ -226,14 +231,12 @@ watchBackButton.addEventListener("click", showMenu);
 restartButton.addEventListener("click", () => {
     if (game) {
         game.restart();
+        gameVisualizer.clear();
     }
 });
 
-watchRestartButton.addEventListener("click", () => {
-    startWatching();
-});
+watchRestartButton.addEventListener("click", startWatching);
 
-// Human board clicks
 document.querySelectorAll(".cell").forEach(cell => {
     cell.addEventListener("click", () => {
         const index = Number(cell.dataset.index);
@@ -241,7 +244,6 @@ document.querySelectorAll(".cell").forEach(cell => {
     });
 });
 
-
-
 training.loadSavedAI();
+
 showScreen(menuScreen);
