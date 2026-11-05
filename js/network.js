@@ -1,4 +1,3 @@
-
 export class NeuralNetwork {
     constructor(inputCount = 9, hiddenCount = 18, outputCount = 9) {
         this.inputCount = inputCount;
@@ -17,6 +16,11 @@ export class NeuralNetwork {
 
         this.hiddenBias = Array(hiddenCount).fill(0);
         this.outputBias = Array(outputCount).fill(0);
+
+        this.lastInputs = Array(inputCount).fill(0);
+        this.lastHidden = Array(hiddenCount).fill(0);
+        this.lastOutputs = Array(outputCount).fill(0);
+        this.lastSelectedMove = null;
     }
 
     createWeights(rows, columns) {
@@ -55,6 +59,7 @@ export class NeuralNetwork {
 
         const outputs = [];
 
+        // Hidden layer to output layer
         for (let i = 0; i < this.outputCount; i++) {
             let sum = this.outputBias[i];
 
@@ -64,6 +69,11 @@ export class NeuralNetwork {
 
             outputs.push(sum);
         }
+
+
+        this.lastInputs = [...inputs];
+        this.lastHidden = [...hidden];
+        this.lastOutputs = [...outputs];
 
         return outputs;
     }
