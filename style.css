@@ -1,15 +1,7 @@
-@font-face {
-    font-family: "Marykate";
-    src: url("./marykate.ttf") format("truetype");
-    font-weight: normal;
-    font-style: normal;
-}
-
 * {
     box-sizing: border-box;
     margin: 0;
     padding: 0;
-    font-family: "Marykate", cursive;
 }
 
 body {
@@ -198,5 +190,65 @@ button:disabled {
         min-height: 0;
         max-width: none;
         max-height: none;
+    }
+}
+
+#network-visualizer,
+#watch-network-visualizer {
+    display: block;
+    width: min(90vw, 700px);
+    min-height: 620px;
+    margin: 30px auto;
+    overflow: visible;
+}
+
+#network-visualizer svg,
+#watch-network-visualizer svg {
+    display: block;
+    width: 100%;
+    height: auto;
+    min-height: 620px;
+}
+
+
+.game-layout {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 35px;
+    width: 100%;
+    margin: 25px auto;
+}
+
+#network-visualizer,
+#watch-network-visualizer {
+    width: min(38vw, 440px);
+    min-width: 280px;
+    flex: 0 1 440px;
+    margin: 0;
+}
+
+#network-visualizer svg,
+#watch-network-visualizer svg {
+    display: block;
+    width: 100%;
+    height: auto;
+}
+
+#restart-button,
+#watch-restart {
+    margin-top: 15px;
+}
+
+@media (max-width: 750px) {
+    .game-layout {
+        flex-direction: column;
+        gap: 15px;
+    }
+
+    #network-visualizer,
+    #watch-network-visualizer {
+        width: min(90vw, 440px);
+        min-width: 0;
     }
 }
