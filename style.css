@@ -160,13 +160,10 @@ button:disabled {
 #watch-board .watch-cell {
     width: 120px !important;
     height: 120px !important;
-
     min-width: 120px;
     min-height: 120px;
-
     max-width: 120px;
     max-height: 120px;
-
     flex: none !important;
     overflow: hidden;
 }
