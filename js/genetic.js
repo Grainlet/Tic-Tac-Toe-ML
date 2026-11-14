@@ -1,4 +1,3 @@
-
 import { NeuralNetwork } from "./network.js";
 
 export class GeneticAlgorithm {
